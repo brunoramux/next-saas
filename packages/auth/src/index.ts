@@ -7,10 +7,19 @@ import {
 
 import { User } from './models/user'
 import { permissions } from './permissions'
+import { BillingSubject } from './subjects/billing'
+import { InviteSubject } from './subjects/invite'
+import { OrganizationSubject } from './subjects/organization'
 import { ProjectSubject } from './subjects/project'
 import { UserSubject } from './subjects/user'
 
-type AppAbilities = UserSubject | ProjectSubject | ['manage', 'all']
+type AppAbilities =
+  | UserSubject
+  | ProjectSubject
+  | BillingSubject
+  | InviteSubject
+  | OrganizationSubject
+  | ['manage', 'all']
 
 export type AppAbility = MongoAbility<AppAbilities>
 export const createAppAbility = createMongoAbility as CreateAbility<AppAbility>
@@ -26,9 +35,4 @@ export function defineAbilityFor(user: User) {
 
   const ability = builder.build()
   return ability
-
-  // can('invite', 'User')
-  // cannot('delete', 'User')
-
-  // export const ability = build()
 }
