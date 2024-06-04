@@ -2,6 +2,7 @@ import fastifyCors from '@fastify/cors'
 import fastifyJwt from '@fastify/jwt'
 import fastifySwagger from '@fastify/swagger'
 import fastifySwaggerUI from '@fastify/swagger-ui'
+import { env } from '@saas/env'
 import { fastify } from 'fastify'
 import {
   jsonSchemaTransform,
@@ -30,7 +31,15 @@ app.register(fastifySwagger, {
       description: 'Full Stack SaaS App',
       version: '1.0.0',
     },
-    servers: [],
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        },
+      },
+    },
   },
   transform: jsonSchemaTransform,
 })
@@ -40,7 +49,7 @@ app.register(fastifySwaggerUI, {
 })
 
 app.register(fastifyJwt, {
-  secret: 'my-jwt-secret',
+  secret: env.JWT_SECRET,
 })
 
 app.setErrorHandler(erroHandler)
@@ -53,6 +62,8 @@ app.register(requestPasswordRecovery)
 app.register(resetPassword)
 app.register(authenticateWithGitHub)
 
-app.listen({ port: 3333 }).then(() => {
-  console.log('HTTP SERVER RUNNING')
+app.listen({ port: env.SERVER_PORT }).then(() => {
+  console.log(
+    'HTTP SERVER RUNNING ON PORT: GO TO http://localhost:' + env.SERVER_PORT,
+  )
 })
