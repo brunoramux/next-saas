@@ -11,7 +11,7 @@ import {
   ZodTypeProvider,
 } from 'fastify-type-provider-zod'
 
-import { erroHandler } from './error-handler'
+import { errorHandler } from './error-handler'
 import { authenticateWithGitHub } from './routes/auth/authenticate-with-github'
 import { authenticateWithPassword } from './routes/auth/authenticate-with-password'
 import { createAccount } from './routes/auth/create-account'
@@ -52,7 +52,7 @@ app.register(fastifyJwt, {
   secret: env.JWT_SECRET,
 })
 
-app.setErrorHandler(erroHandler)
+app.setErrorHandler(errorHandler)
 
 app.register(fastifyCors)
 app.register(createAccount)
