@@ -5,7 +5,7 @@ import z from 'zod'
 import { auth } from '@/http/middlewares/auth'
 import { prisma } from '@/lib/prisma'
 
-export function getOrganizations(app: FastifyInstance) {
+export async function getOrganizations(app: FastifyInstance) {
   app
     .withTypeProvider<ZodTypeProvider>()
     .register(auth)
@@ -16,9 +16,6 @@ export function getOrganizations(app: FastifyInstance) {
           tags: ['organization'],
           summary: 'Get all organizations where user is a member.',
           security: [{ bearerAuth: [] }],
-          params: z.object({
-            slug: z.string(),
-          }),
           response: {
             200: z.object({
               organizations: z.array(

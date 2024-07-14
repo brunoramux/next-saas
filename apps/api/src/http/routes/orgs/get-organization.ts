@@ -4,7 +4,7 @@ import z from 'zod'
 
 import { auth } from '@/http/middlewares/auth'
 
-export function getOrganization(app: FastifyInstance) {
+export async function getOrganization(app: FastifyInstance) {
   app
     .withTypeProvider<ZodTypeProvider>()
     .register(auth)
