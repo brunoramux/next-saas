@@ -16,7 +16,7 @@ export async function transferOrganization(app: FastifyInstance) {
     .withTypeProvider<ZodTypeProvider>()
     .register(auth)
     .patch(
-      '/organization/:slug',
+      '/organizations/:slug',
       {
         schema: {
           tags: ['organization'],
