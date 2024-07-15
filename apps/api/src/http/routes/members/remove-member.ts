@@ -9,7 +9,7 @@ import { prisma } from '@/lib/prisma'
 
 import { UnauthorizedError } from '../_errors/unauthorized-error'
 
-export async function deleteMember(app: FastifyInstance) {
+export async function removeMember(app: FastifyInstance) {
   app
     .withTypeProvider<ZodTypeProvider>()
     .register(auth)
@@ -17,7 +17,7 @@ export async function deleteMember(app: FastifyInstance) {
       '/organizations/:slug/members/:memberId',
       {
         schema: {
-          tags: ['projects'],
+          tags: ['members'],
           summary: 'Remove a Member from Organization',
           security: [{ bearerAuth: [] }],
           params: z.object({
