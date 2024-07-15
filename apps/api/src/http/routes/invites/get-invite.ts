@@ -1,3 +1,4 @@
+import { roleSchema } from '@saas/auth/src/roles'
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
 import z from 'zod'
@@ -29,7 +30,7 @@ export async function getInvite(app: FastifyInstance) {
                 }),
                 id: z.string().uuid(),
                 email: z.string().email(),
-                role: z.string(),
+                role: roleSchema,
                 createdAt: z.date(),
                 author: z
                   .object({
