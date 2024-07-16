@@ -17,7 +17,7 @@ export async function getProjects(app: FastifyInstance) {
       '/organizations/:slug/projects',
       {
         schema: {
-          tags: ['projects'],
+          tags: ['Projects'],
           summary: 'Get all organization project',
           security: [{ bearerAuth: [] }],
           params: z.object({

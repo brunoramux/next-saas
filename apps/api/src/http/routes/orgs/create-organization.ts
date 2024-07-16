@@ -16,7 +16,7 @@ export async function createOrganization(app: FastifyInstance) {
       '/organizations',
       {
         schema: {
-          tags: ['organization'],
+          tags: ['Organizations'],
           summary: 'Create a new Organization',
           security: [{ bearerAuth: [] }],
           body: z.object({
