@@ -1,6 +1,8 @@
 'use server'
 
 import { HTTPError } from 'ky'
+import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
 import { z } from 'zod'
 
 import { signInWithEmail } from '@/http/sign-in-with-email'
@@ -15,9 +17,10 @@ const signInSchema = z.object({
 })
 
 export async function signInWithEmailAndPassword(
-  previousState: unknown,
+  // previousState: unknown,
   data: FormData,
 ) {
+  // validação de dados do formulário com Zod e Typescript
   const result = signInSchema.safeParse(Object.fromEntries(data))
 
   if (!result.success) {
@@ -30,16 +33,20 @@ export async function signInWithEmailAndPassword(
   }
 
   const { email, password } = result.data
-  await new Promise((resolve) => setTimeout(resolve, 2000))
+  await new Promise((resolve) => setTimeout(resolve, 500))
 
   try {
     const { token } = await signInWithEmail({
       email,
       password,
     })
-    console.log(token)
+    cookies().set('token', token, {
+      path: '/',
+      maxAge: 60 * 60 * 24 * 7,
+    })
   } catch (error) {
     if (error instanceof HTTPError) {
+      // pega mensagem que retorna do back-end
       const { message } = await error.response.json()
 
       return { success: false, message, errors: null }
@@ -51,5 +58,5 @@ export async function signInWithEmailAndPassword(
     }
   }
 
-  return { success: true, message: null, errors: null }
+  redirect('/')
 }
