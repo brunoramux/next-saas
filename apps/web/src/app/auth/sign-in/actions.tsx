@@ -42,7 +42,7 @@ export async function signInWithEmailAndPassword(
     })
     cookies().set('token', token, {
       path: '/',
-      maxAge: 60 * 60 * 24 * 7,
+      maxAge: 60 * 20,
     })
   } catch (error) {
     if (error instanceof HTTPError) {
