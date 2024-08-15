@@ -3,7 +3,7 @@ import './globals.css'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Create Next App',
+  title: 'SaaS with Next and Node',
 }
 
 export default function RootLayout({
