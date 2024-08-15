@@ -1,27 +1,36 @@
 'use server'
 
 import { HTTPError } from 'ky'
-import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { z } from 'zod'
 
-import { signInWithEmail } from '@/http/sign-in-with-email'
+import { signUp } from '@/http/sign-up'
 
-const signInSchema = z.object({
-  email: z.string().email({
-    message: 'Please, provide a valid e-mail address.',
-  }),
-  password: z
-    .string()
-    .min(6, { message: 'Password must have at least six digits.' }),
-})
+const signUpSchema = z
+  .object({
+    name: z.string().refine((value) => value.split(' ').length > 1, {
+      message: 'Please, enter your full name',
+    }),
+    email: z.string().email({
+      message: 'Please, provide a valid e-mail address.',
+    }),
+    password: z
+      .string()
+      .min(6, { message: 'Password must have at least six digits.' }),
+    password_confirmation: z.string(),
+  })
+  // Refine: verificar se campos password e password_confirmation contém os mesmos dados
+  .refine((data) => data.password === data.password_confirmation, {
+    message: 'Password and password confirmation must be equals.',
+    path: ['password_confirmation'],
+  })
 
-export async function signInWithEmailAndPassword(
+export async function signUpAction(
   // previousState: unknown,
   data: FormData,
 ) {
   // validação de dados do formulário com Zod e Typescript
-  const result = signInSchema.safeParse(Object.fromEntries(data))
+  const result = signUpSchema.safeParse(Object.fromEntries(data))
 
   // Retorna erros de validação do Zod
   if (!result.success) {
@@ -33,18 +42,14 @@ export async function signInWithEmailAndPassword(
     }
   }
 
-  const { email, password } = result.data
+  const { name, email, password } = result.data
   // await new Promise((resolve) => setTimeout(resolve, 500))
 
   try {
-    const { token } = await signInWithEmail({
+    await signUp({
+      name,
       email,
       password,
-    })
-    // Seta o token nos Cookies usando next/headers
-    cookies().set('token', token, {
-      path: '/',
-      maxAge: 60 * 20,
     })
   } catch (error) {
     if (error instanceof HTTPError) {

@@ -24,14 +24,21 @@ export function useFormState(
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
+    // Código para pegar dados do formulário
     const form = event.currentTarget
     const data = new FormData(form)
 
+    // startTransition controla o estado do Form para que possamos usar o isPending
     startTransition(async () => {
+      // Executa a action (função passada via parâmetro que representa a action a ser executada pelo formulário)
       const state = await action(data)
+
+      // onSuccess: outra função passada como parâmetro para ser executada em caso de sucesso
       if (state.success === true && onSuccess) {
         await onSuccess()
       }
+
+      // seta resultado da action no formState para ser acessado externamente. O resultado sempre possui um objeto {success, message, errors}
       setFormState(state)
     })
   }
