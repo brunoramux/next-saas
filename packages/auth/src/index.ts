@@ -7,6 +7,7 @@ import {
 
 import { User } from './models/user'
 import { permissions } from './permissions'
+import { type Role } from './roles'
 import { BillingSubject } from './subjects/billing'
 import { InviteSubject } from './subjects/invite'
 import { OrganizationSubject } from './subjects/organization'
@@ -21,6 +22,7 @@ type AppAbilities =
   | OrganizationSubject
   | ['manage', 'all']
 
+export type RoleExt = Role
 export type AppAbility = MongoAbility<AppAbilities>
 export const createAppAbility = createMongoAbility as CreateAbility<AppAbility>
 
