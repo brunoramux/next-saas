@@ -1,11 +1,12 @@
 {
-  "name": "web",
+  "name": "@saas/web",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbo",
+    "dev": "npm run env:load next dev --turbo",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "env:load": "dotenv -e ../../.env --"
   },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.1.0",
@@ -14,9 +15,11 @@
     "@radix-ui/react-separator": "^1.1.0",
     "@radix-ui/react-slot": "^1.1.0",
     "@saas/auth": "*",
+    "@saas/env": "*",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "cookies-next": "^4.2.1",
+    "dotenv-cli": "^7.4.2",
     "ky": "^1.5.0",
     "lucide-react": "^0.424.0",
     "next": "^14.2.5",
