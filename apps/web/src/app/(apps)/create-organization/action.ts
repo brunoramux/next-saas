@@ -1,33 +1,45 @@
 'use server'
 
 import { HTTPError } from 'ky'
-import { redirect } from 'next/navigation'
 import { z } from 'zod'
 
 import { createOrganization } from '@/http/create-organization'
 
-const organizationSchema = z.object({
-  name: z
-    .string()
-    .min(4, { message: 'Please, include a valid organization name.' }),
-  domain: z
-    .string()
-    .nullable()
-    .refine(
-      (value) => {
-        if (value) {
-          const domainRegex = /^[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$/
-          return domainRegex.test(value)
-        }
-        return true
-      },
-      { message: 'Invalid domain name.' },
-    ),
-  shouldAttachUsersByDomain: z
-    .union([z.literal('on'), z.literal('off'), z.boolean()])
-    .transform((value) => value === true || value === 'on')
-    .default(false),
-})
+const organizationSchema = z
+  .object({
+    name: z
+      .string()
+      .min(4, { message: 'Please, include a valid organization name.' }),
+    domain: z
+      .string()
+      .nullable()
+      .refine(
+        (value) => {
+          if (value) {
+            const domainRegex = /^[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$/
+            return domainRegex.test(value)
+          }
+          return true
+        },
+        { message: 'Invalid domain name.' },
+      ),
+    shouldAttachUsersByDomain: z
+      .union([z.literal('on'), z.literal('off'), z.boolean()])
+      .transform((value) => value === true || value === 'on')
+      .default(false),
+  })
+  .refine(
+    (data) => {
+      if (data.shouldAttachUsersByDomain === true && !data.domain) {
+        return false
+      }
+      return true
+    },
+    {
+      message: 'Domain is required when auto-join is enabled.',
+      path: ['domain'],
+    },
+  )
 
 export async function createOrganizationAction(
   // previousState: unknown,

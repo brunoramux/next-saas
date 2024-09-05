@@ -1,4 +1,5 @@
 import { Header } from '@/components/header/header'
+import CreateSheet from '@/components/sheet'
 
 import OrganizationForm from './organization-form'
 
@@ -8,6 +9,7 @@ export default function CreateOrganization() {
       <Header />
 
       <OrganizationForm />
+      <CreateSheet />
     </div>
   )
 }
