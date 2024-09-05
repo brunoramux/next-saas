@@ -3,6 +3,7 @@ import Image from 'next/image'
 import logo from '@/assets/logo.svg'
 import { ability } from '@/auth/auth'
 
+import BreadcrumbComponent from '../breadcrumb'
 import { ThemeSwitcher } from '../theme/theme-switcher'
 import { Separator } from '../ui/separator'
 import { OrganizationSwitcher } from './organization-switcher'
@@ -11,19 +12,24 @@ import { ProfileButton } from './profile-button'
 export async function Header() {
   const permissions = await ability()
   return (
-    <div className="mx-auto flex max-w-[1200px] items-center justify-between border-b pb-4">
-      <div className="flex items-center gap-3">
-        <Image src={logo} className="size-12" alt="logo" />
-        <Separator orientation="vertical" className="h-5" />
-        <OrganizationSwitcher />
-        {permissions?.can('get', 'Project') && <p>Projetos</p>}
-      </div>
+    <>
+      <div className="mx-auto flex max-w-[1200px] items-center justify-between border-b pb-4">
+        <div className="flex items-center gap-3">
+          <Image src={logo} className="size-12" alt="logo" />
+          <Separator orientation="vertical" className="h-5" />
+          <OrganizationSwitcher />
+          {permissions?.can('get', 'Project') && <p>Projetos</p>}
+        </div>
 
-      <div className="flex items-center gap-4">
-        <ThemeSwitcher />
-        <Separator orientation="vertical" className="h-5" />
-        <ProfileButton />
+        <div className="flex items-center gap-4">
+          <ThemeSwitcher />
+          <Separator orientation="vertical" className="h-5" />
+          <ProfileButton />
+        </div>
       </div>
-    </div>
+      <div className="pb-4 pt-4">
+        <BreadcrumbComponent />
+      </div>
+    </>
   )
 }
