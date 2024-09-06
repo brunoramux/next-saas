@@ -22,11 +22,9 @@ export default function BreadcrumbComponent() {
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         {paths.map((path) =>
-          path !== '' && path !== 'org' ? (
+          path !== '' && path !== 'org' && path !== 'project' ? (
             <>
-              <BreadcrumbItem>
-                <BreadcrumbLink href={path}>{path}</BreadcrumbLink>
-              </BreadcrumbItem>
+              <BreadcrumbItem>{path}</BreadcrumbItem>
               <BreadcrumbSeparator />
             </>
           ) : (
