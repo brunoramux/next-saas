@@ -8,6 +8,7 @@ import { auth } from '@/http/middlewares/auth'
 import { prisma } from '@/lib/prisma'
 import { createSlug } from '@/utils/create-slug'
 
+import { BadRequestError } from '../_errors/bad-request-error'
 import { UnauthorizedError } from '../_errors/unauthorized-error'
 
 export async function createProject(app: FastifyInstance) {
@@ -55,11 +56,22 @@ export async function createProject(app: FastifyInstance) {
           )
         }
 
+        const projectSlug = createSlug(name)
+
+        const projectWithSameSlug = await prisma.project.findUnique({
+          where: {
+            slug: projectSlug,
+          },
+        })
+
+        if (projectWithSameSlug) {
+          throw new BadRequestError('Project with same name already exists.')
+        }
         const project = await prisma.project.create({
           data: {
             name,
             description,
-            slug: createSlug(name),
+            slug: projectSlug,
             organizationId: organization.id,
             ownerId: userId,
           },
