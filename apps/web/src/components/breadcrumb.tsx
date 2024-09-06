@@ -13,7 +13,7 @@ import {
 export default function BreadcrumbComponent() {
   const pathname = usePathname()
   const paths = pathname.split('/')
-  console.log(paths)
+
   return (
     <Breadcrumb>
       <BreadcrumbList>
@@ -22,7 +22,7 @@ export default function BreadcrumbComponent() {
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         {paths.map((path) =>
-          path !== '' ? (
+          path !== '' && path !== 'org' ? (
             <>
               <BreadcrumbItem>
                 <BreadcrumbLink href={path}>{path}</BreadcrumbLink>

@@ -8,6 +8,7 @@ import { ThemeSwitcher } from '../theme/theme-switcher'
 import { Separator } from '../ui/separator'
 import { OrganizationSwitcher } from './organization-switcher'
 import { ProfileButton } from './profile-button'
+import ProjectSwitcher from './project-switcher'
 
 export async function Header() {
   const permissions = await ability()
@@ -18,7 +19,8 @@ export async function Header() {
           <Image src={logo} className="size-12" alt="logo" />
           <Separator orientation="vertical" className="h-5" />
           <OrganizationSwitcher />
-          {permissions?.can('get', 'Project') && <p>Projetos</p>}
+          <Separator orientation="vertical" className="h-5" />
+          {permissions?.can('get', 'Project') && <ProjectSwitcher />}
         </div>
 
         <div className="flex items-center gap-4">

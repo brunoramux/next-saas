@@ -1,4 +1,3 @@
-import { DropdownMenuLabel } from '@radix-ui/react-dropdown-menu'
 import { ChevronsUpDown, PlusCircle } from 'lucide-react'
 import Link from 'next/link'
 
@@ -11,6 +10,7 @@ import {
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
+  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu'
