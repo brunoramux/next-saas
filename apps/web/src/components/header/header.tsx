@@ -23,6 +23,7 @@ export async function Header() {
           <Separator orientation="vertical" className="h-5" />
           <OrganizationSwitcher />
           <Separator orientation="vertical" className="h-5" />
+          {/* Verificas e existe Organização selecionada e se o usuário logado tem permissões para visualizar projetos */}
           {permissions?.can('get', 'Project') && <ProjectSwitcher />}
         </div>
 

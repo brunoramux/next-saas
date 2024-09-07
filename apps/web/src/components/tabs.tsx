@@ -32,7 +32,7 @@ export default async function Tabs() {
               asChild
               variant="ghost"
               size="sm"
-              className="rounded-none border border-transparent text-muted-foreground hover:rounded-md data-[current=true]:border-input data-[current=true]:text-foreground"
+              className="data-[current=true]: rounded-none border border-transparent text-muted-foreground hover:rounded-md data-[current=true]:border-b-input data-[current=true]:border-b-neutral-50 data-[current=true]:text-foreground"
             >
               <NavLink href={`/org/${currentOrg}/members`}>Members</NavLink>
             </Button>
@@ -42,7 +42,7 @@ export default async function Tabs() {
               asChild
               variant="ghost"
               size="sm"
-              className="rounded-none border border-transparent text-muted-foreground hover:rounded-md data-[current=true]:border-input data-[current=true]:text-foreground"
+              className="data-[current=true]: rounded-none border border-transparent text-muted-foreground hover:rounded-md data-[current=true]:border-b-input data-[current=true]:border-b-neutral-50 data-[current=true]:text-foreground"
             >
               <NavLink href={`/org/${currentOrg}/settings`}>
                 Settings & Billing
