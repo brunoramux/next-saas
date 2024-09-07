@@ -5,7 +5,6 @@ import { usePathname } from 'next/navigation'
 import {
   Breadcrumb,
   BreadcrumbItem,
-  BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbSeparator,
 } from './ui/breadcrumb'
@@ -15,16 +14,18 @@ export default function BreadcrumbComponent() {
   const paths = pathname.split('/')
 
   return (
-    <Breadcrumb>
+    <Breadcrumb className="mt-[-12px]">
       <BreadcrumbList>
-        <BreadcrumbItem>
-          <BreadcrumbLink href="/">Home</BreadcrumbLink>
+        <BreadcrumbItem className="text-[10px] text-muted-foreground">
+          Home
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         {paths.map((path) =>
           path !== '' && path !== 'org' && path !== 'project' ? (
             <>
-              <BreadcrumbItem>{path}</BreadcrumbItem>
+              <BreadcrumbItem className="text-[10px] text-muted-foreground">
+                {path}
+              </BreadcrumbItem>
               <BreadcrumbSeparator />
             </>
           ) : (
