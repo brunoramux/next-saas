@@ -5,7 +5,9 @@ export default async function Home() {
     <div className="py-4">
       <Header />
 
-      <h1 className="text-2xl font-bold">Home</h1>
+      <h1 className="pt-6 text-2xl font-bold">
+        Select an Organization to manage or create a new one.
+      </h1>
     </div>
   )
 }

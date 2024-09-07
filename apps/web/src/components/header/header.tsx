@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 
 import logo from '@/assets/logo.svg'
 import { ability } from '@/auth/auth'
@@ -15,7 +16,10 @@ export async function Header() {
     <>
       <div className="mx-auto flex max-w-[1200px] items-center justify-between">
         <div className="flex items-center gap-3">
-          <Image src={logo} className="size-12" alt="logo" />
+          <Link href="/">
+            <Image src={logo} className="size-12" alt="logo" />
+          </Link>
+
           <Separator orientation="vertical" className="h-5" />
           <OrganizationSwitcher />
           <Separator orientation="vertical" className="h-5" />
