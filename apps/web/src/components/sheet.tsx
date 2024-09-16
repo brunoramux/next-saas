@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
 
-import OrganizationForm from '@/app/(apps)/create-organization/organization-form'
+import OrganizationForm from '@/app/(apps)/org/organization-form'
 
 import { Button } from './ui/button'
 import {

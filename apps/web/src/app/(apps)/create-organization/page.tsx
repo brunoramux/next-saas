@@ -1,7 +1,7 @@
 import { Header } from '@/components/header/header'
 import CreateSheet from '@/components/sheet'
 
-import OrganizationForm from './organization-form'
+import OrganizationForm from '../org/organization-form'
 
 export default function CreateOrganization() {
   return (
