@@ -1,3 +1,5 @@
+'use client'
+
 import type { Role } from '@saas/auth/src/roles'
 import type { ComponentProps } from 'react'
 
