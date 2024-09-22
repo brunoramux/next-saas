@@ -22,6 +22,7 @@ export function CreateInviteForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
+      {/* ESTRUTURA DO FORM QUE MOSTRA RESULTADO DO SUBMIT, COM SUCESSO OU ERRO RETORNADO DO ZOD OU DO BACK-END */}
       {success === false && message && (
         <Alert variant="destructive">
           <AlertTriangle className="size-4" />
@@ -29,6 +30,12 @@ export function CreateInviteForm() {
           <AlertDescription>
             <p>{message}</p>
           </AlertDescription>
+        </Alert>
+      )}
+      {success === true && message && (
+        <Alert variant="success">
+          <AlertTriangle className="size-4" />
+          <AlertTitle>{message}</AlertTitle>
         </Alert>
       )}
 

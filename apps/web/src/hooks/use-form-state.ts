@@ -1,4 +1,5 @@
 import { FormEvent, useState, useTransition } from 'react'
+import { requestFormReset } from 'react-dom'
 
 interface FormState {
   success: boolean
@@ -41,6 +42,8 @@ export function useFormState(
       // seta resultado da action no formState para ser acessado externamente. O resultado sempre possui um objeto {success, message, errors}
       setFormState(state)
     })
+
+    requestFormReset(form)
   }
 
   return [formState, handleSubmit, isPending] as const

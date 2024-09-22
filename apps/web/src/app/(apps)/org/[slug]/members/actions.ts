@@ -1,6 +1,7 @@
 'use server'
 
-import { type Role, roleSchema } from '@saas/auth/src/roles'
+import type { RoleExt } from '@saas/auth'
+import { roleSchema } from '@saas/auth/src/roles'
 import { HTTPError } from 'ky'
 import { revalidateTag } from 'next/cache'
 import { z } from 'zod'
@@ -19,7 +20,7 @@ export async function removeMemberAction(memberId: string) {
   revalidateTag(`${currentOrg}/members`)
 }
 
-export async function updateMemberAction(memberId: string, role: Role) {
+export async function updateMemberAction(memberId: string, role: RoleExt) {
   const currentOrg = getCurrentOrg()
 
   await updateMember({ memberId, role, slug: currentOrg! })
