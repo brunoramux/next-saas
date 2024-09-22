@@ -5,6 +5,7 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { z } from 'zod'
 
+import { acceptInvite } from '@/http/accept-invite'
 import { signInWithEmail } from '@/http/sign-in-with-email'
 
 const signInSchema = z.object({
@@ -46,6 +47,15 @@ export async function signInWithEmailAndPassword(
       path: '/',
       maxAge: 60 * 20,
     })
+
+    const inviteId = cookies().get('inviteId')?.value
+
+    if (inviteId) {
+      try {
+        await acceptInvite(inviteId)
+        cookies().delete('inviteId')
+      } catch {}
+    }
   } catch (error) {
     if (error instanceof HTTPError) {
       // pega mensagem que retorna do back-end
